@@ -23,7 +23,7 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import TabOneScreen from "../screens/TabOneScreen";
+import ChatsScreen from "../screens/ChatsScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import {
   RootStackParamList,
@@ -133,10 +133,10 @@ function MainTabNavigator() {
     >
       <MainTab.Screen
         name="Camera"
-        component={TabOneScreen}
+        component={ChatsScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <Fontisto name="camera" color={"red"} size={18} margin={0} />
+            <Fontisto name="camera" color={color} size={18} margin={0} />
           ),
 
           tabBarLabel: () => null,
@@ -160,7 +160,7 @@ function MainTabNavigator() {
         //   ),
         // })}
       />
-      <MainTab.Screen name="Chats" component={TabTwoScreen} />
+      <MainTab.Screen name="Chats" component={ChatsScreen} />
       <MainTab.Screen name="Status" component={TabTwoScreen} />
       <MainTab.Screen name="Calls" component={TabTwoScreen} />
     </MainTab.Navigator>
