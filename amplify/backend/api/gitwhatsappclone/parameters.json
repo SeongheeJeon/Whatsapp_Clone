@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "gitwhatsappclone",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authgitwhatsappclone0bb0c09b",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
