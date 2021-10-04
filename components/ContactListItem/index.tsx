@@ -2,7 +2,7 @@ import moment from "moment";
 import React from "react";
 import { Image, Text, View, TouchableWithoutFeedback } from "react-native";
 import { User } from "../../types";
-import styles from "./style";
+import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
 export type ContactListItemProps = {
