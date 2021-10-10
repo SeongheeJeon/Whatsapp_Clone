@@ -46,6 +46,7 @@ const ContactListItem = (props: ContactListItemProps) => {
 
       // 3. Add authenticated user to thet Chat Room
       const userInfo = await Auth.currentAuthenticatedUser();
+
       await API.graphql(
         graphqlOperation(createChatRoomUser, {
           input: {
