@@ -6,7 +6,13 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
-import { TextInput, TouchableOpacity, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import styles from "./styles";
 
 import { API, Auth, graphqlOperation } from "aws-amplify";
@@ -72,29 +78,39 @@ const InputBox = (props) => {
     }
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.mainContainer}>
-        <FontAwesome5 name="laugh-beam" size={24} color="grey" />
-        <TextInput
-          style={styles.textInput}
-          multiline
-          numberOfLines={2}
-          value={message}
-          onChangeText={setMessage}
-        />
-        <Entypo name="attachment" size={24} style={styles.icon} />
-        {!message && <Fontisto name="camera" size={24} style={styles.icon} />}
-      </View>
-      <TouchableOpacity onPress={onPress}>
-        <View style={styles.buttonContainer}>
-          {!message ? (
-            <MaterialCommunityIcons name="microphone" size={28} color="white" />
-          ) : (
-            <MaterialIcons name="send" size={28} color="white" />
-          )}
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={100}
+      style={{ width: "100%" }}
+    >
+      <View style={styles.container}>
+        <View style={styles.mainContainer}>
+          <FontAwesome5 name="laugh-beam" size={24} color="grey" />
+          <TextInput
+            style={styles.textInput}
+            multiline
+            numberOfLines={2}
+            value={message}
+            onChangeText={setMessage}
+          />
+          <Entypo name="attachment" size={24} style={styles.icon} />
+          {!message && <Fontisto name="camera" size={24} style={styles.icon} />}
         </View>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity onPress={onPress}>
+          <View style={styles.buttonContainer}>
+            {!message ? (
+              <MaterialCommunityIcons
+                name="microphone"
+                size={28}
+                color="white"
+              />
+            ) : (
+              <MaterialIcons name="send" size={28} color="white" />
+            )}
+          </View>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
