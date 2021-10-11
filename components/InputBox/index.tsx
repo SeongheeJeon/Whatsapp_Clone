@@ -6,11 +6,11 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import React, { useState, useEffect } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { TextInput, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 
 import { API, Auth, graphqlOperation } from "aws-amplify";
-import { createMessage } from "../../src/graphql/mutations";
+import { createMessage, updateChatRoom } from "../../src/graphql/mutations";
 
 const InputBox = (props) => {
   const { chatRoomID } = props;
@@ -30,9 +30,24 @@ const InputBox = (props) => {
     console.warn("Microphone");
   };
 
-  const onSendPress = async () => {
+  const updateChatRoomLastMessage = async (messageId: string) => {
     try {
       await API.graphql(
+        graphqlOperation(updateChatRoom, {
+          input: {
+            id: chatRoomID,
+            lastMessageID: messageId,
+          },
+        })
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onSendPress = async () => {
+    try {
+      const newMessageData = await API.graphql(
         graphqlOperation(createMessage, {
           input: {
             content: message,
@@ -41,6 +56,7 @@ const InputBox = (props) => {
           },
         })
       );
+      await updateChatRoomLastMessage(newMessageData.data.createMessage.id);
     } catch (e) {
       console.log(e);
     }

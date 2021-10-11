@@ -21,7 +21,6 @@ export default function ChatsScreen() {
           graphqlOperation(getUser, { id: userInfo.attributes.sub })
         );
         setChatRooms(userData.data.getUser.chatRoomUser.items);
-        console.log(chatRooms);
       } catch (e) {
         console.log(e);
       }
